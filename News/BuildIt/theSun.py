@@ -2,6 +2,14 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options #Required for headless-mode 
 from selenium.webdriver.chrome.service import Service
 import pandas as pd
+from datetime import datetime
+import os
+import sys
+
+app_path = os.path.dirname(sys.executable)
+
+now = datetime.now()
+string_time = now.strftime('%d%m%y')
 
 
 
@@ -40,8 +48,11 @@ for container in containers:
 my_dict = {'Titles':titles, 'Sub-Titles':subtitles, 'Link': links}
 df_headlines = pd.DataFrame(my_dict)
 
+filename = f'theSun-headlines--{string_time}.csv' 
+final_path = os.path.join(app_path,filename)
 
-df_headlines.to_csv('theSun-headlines.csv')
+
+df_headlines.to_csv(final_path)
 
 #Quit your driver
 driver.quit()
